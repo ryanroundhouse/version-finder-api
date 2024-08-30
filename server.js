@@ -14,6 +14,10 @@ const projectMap = {
   nsbl: 'nsbl_releases.json',
   pubs: 'pubs_releases.json'
 };
+const cors = require('cors');
+
+// Enable CORS for all routes
+app.use(cors());
 
 app.use(express.json());
 
