@@ -92,9 +92,9 @@ app.post('/dependencies/:projectId/:releaseId', (req, res) => {
 
   const { dependencies } = req.body;
 
-  if (!dependencies || !Array.isArray(dependencies) || dependencies.some(dep => !dep.dependencyReleaseId || !dep.project || !dep.release)) {
+  if (!dependencies || !Array.isArray(dependencies) || dependencies.some(dep => !dep.dependencyReleaseId || !dep.project || !dep.version)) {
     console.log(`Invalid request body: ${JSON.stringify(req.body)}`);
-    return res.status(400).json({ error: 'Invalid request body. Each dependency must include dependencyReleaseId, project, and release.' });
+    return res.status(400).json({ error: 'Invalid request body. Each dependency must include dependencyReleaseId, project, and version.' });
   }
 
   const releasesFilePath = path.join(__dirname, 'releases', fileName);

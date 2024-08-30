@@ -109,7 +109,7 @@ Sets the dependencies for a specific release of a project.
       {
         "dependencyReleaseId": "string",
         "project": "string",
-        "release": "string"
+        "version": "string"
       },
       ...
     ]
@@ -128,7 +128,7 @@ Sets the dependencies for a specific release of a project.
         {
           "dependencyReleaseId": "string",
           "project": "string",
-          "release": "string"
+          "version": "string"
         },
         ...
       ]
