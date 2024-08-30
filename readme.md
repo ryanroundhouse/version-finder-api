@@ -74,77 +74,75 @@ Sample response:
   "10676": [
     {
       "project": "cc",
-      "release": "2.3.0"
+      "release": "2.3.0",
+      "dependencyReleaseId": "559"
     },
     {
       "project": "blr",
-      "release": "1.5.2"
+      "release": "1.5.2",
+      "dependencyReleaseId": "234"
     }
   ],
   "10675": [
     {
       "project": "cc",
-      "release": "2.2.1"
+      "release": "2.2.1",
+      "dependencyReleaseId": "105"
     }
   ]
 }
 ```
 
-### Add Dependencies to a Release
+### Set Dependencies for a Release
 
-- **POST** `/dependencies/:projectId/:releaseId`
+Sets the dependencies for a specific release of a project.
 
-Sample request:
-
-```
-POST http://localhost:3000/dependencies/cis/10676
-Content-Type: application/json
-{
-  "dependencies": [
+- **URL:** `/dependencies/:projectId/:releaseId`
+- **Method:** `POST`
+- **URL Params:**
+  - `projectId`: ID of the project
+  - `releaseId`: ID of the release
+- **Data Params:**
+  ```json
+  {
+    "dependencies": [
+      {
+        "dependencyReleaseId": "string",
+        "project": "string",
+        "release": "string"
+      },
+      ...
+    ]
+  }
+  ```
+- **Success Response:**
+  - **Code:** 200
+  - **Content:**
+    ```json
     {
-      "project": "cc",
-      "release": "2.3.1"
-    },
-    {
-      "project": "pubs",
-      "release": "1.0.0"
+      "message": "Dependencies set successfully",
+      "release": {
+        // Release object
+      },
+      "dependencies": [
+        {
+          "dependencyReleaseId": "string",
+          "project": "string",
+          "release": "string"
+        },
+        ...
+      ]
     }
-  ]
-}
-```
+    ```
+- **Error Responses:**
+  - **Code:** 400 BAD REQUEST
+    - **Content:** `{ "error": "Invalid project ID" }` or `{ "error": "Invalid request body. Each dependency must include releaseId, project, and release." }`
+  - **Code:** 404 NOT FOUND
+    - **Content:** `{ "error": "Release not found" }`
+  - **Code:** 500 INTERNAL SERVER ERROR
+    - **Content:** `{ "error": "Internal server error" }`
 
-sample response:
-
-```json
-{
-  "message": "Dependencies added successfully",
-  "release": {
-    "id": "10676",
-    "name": "6.7.9",
-    "description": "Patch release.",
-    "startDate": "2025-10-29",
-    "releaseDate": "2025-12-23"
-  },
-  "dependencies": [
-    {
-      "project": "cc",
-      "release": "2.3.0"
-    },
-    {
-      "project": "blr",
-      "release": "1.5.2"
-    },
-    {
-      "project": "cc",
-      "release": "2.3.1"
-    },
-    {
-      "project": "pubs",
-      "release": "1.0.0"
-    }
-  ]
-}
-```
+**Note:** Each dependency in the array must include `releaseId`, `project`, and `release` properties.
 
 ## Project Structure
 
